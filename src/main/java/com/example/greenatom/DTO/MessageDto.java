@@ -1,2 +1,22 @@
-package com.example.greenatom.Controllers;public class MessageDto {
+package com.example.greenatom.DTO;
+
+public class MessageDto {
+    private String author;
+    private String text;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }
