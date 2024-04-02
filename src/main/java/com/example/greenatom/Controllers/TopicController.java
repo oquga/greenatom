@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.AbstractMap;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/topics")
@@ -18,10 +21,16 @@ public class TopicController {
     private TopicService topicService;
 
     @GetMapping
-    public ResponseEntity<List<Topic>> getAllTopics() {
-        List<Topic> topics = topicService.getAllTopics();
+    public ResponseEntity<List<AbstractMap.SimpleEntry<Long,String>>> getAllTopicsNames() {
+        List<AbstractMap.SimpleEntry<Long,String>> topics = topicService.getAllTopicsNames();
         return new ResponseEntity<>(topics, HttpStatus.OK);
     }
+
+//    @GetMapping
+//    public ResponseEntity<List<Topic>> getAllTopics() {
+//        List<Topic> topics = topicService.getAllTopics();
+//        return new ResponseEntity<>(topics, HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity<Topic> createTopic(@RequestBody TopicDto topicDto) {

@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.AbstractMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class TopicService {
@@ -26,8 +27,19 @@ public class TopicService {
     private MessageRepository messageRepository;
 
     @Transactional(readOnly = true)
+    public List<AbstractMap.SimpleEntry<Long, String>> getAllTopicsNames() {
+        List<Topic> topics = topicRepository.findAll();
+        List<AbstractMap.SimpleEntry<Long, String>> titles = topics.stream()
+                .map(topic -> new AbstractMap.SimpleEntry<>(topic.getId(), topic.getTitle()))
+                .collect(Collectors.toList());
+
+        return titles;
+    }
+
+    @Transactional(readOnly = true)
     public List<Topic> getAllTopics() {
-        return topicRepository.findAll();
+        List<Topic> topics = topicRepository.findAll();
+        return topics;
     }
 
     @Transactional(readOnly = true)
